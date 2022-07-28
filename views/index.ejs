@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do List</title>
+
+</head>
+<body>
+    <h1>TO DO</h1>
+    <form action="/search" method="post">
+        <input type="date" name="dateInit" value="<%= todayDate %>">
+        <input type="submit" name="sub">
+    </form>
+
+    <ul style="display: inline">
+    <!-- RENDER TASKS OF DB -->
+    <% list.forEach(el => { %>
+        <li>
+            <a href="/update/ <%= el._id %>">alt</a>
+            <a href="/delete/ <%= el._id %>">exc</a>       
+            <%= el.task %> 
+        </li>
+    <% }); %> 
+    
+    </ul>
+
+    <form action="/" method="post">
+        <input type="text" name="newTask" autofocus>
+        <input type="date" name="date" id="date" value="<%= todayDate %>">
+        <input type="submit" value="Criar">
+    </form>
+
+   <script>
+        function updateList(){
+
+        }
+   </script>
+
+</body>
+</html>
