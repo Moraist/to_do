@@ -1,42 +1,47 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>To Do List</title>
+<%- include('./template/header') %> 
 
-</head>
-<body>
-    <h1>TO DO</h1>
-    <form action="/search" method="post">
-        <input type="date" name="dateInit" value="<%= todayDate %>">
-        <input type="submit" name="sub">
-    </form>
 
-    <ul style="display: inline">
-    <!-- RENDER TASKS OF DB -->
-    <% list.forEach(el => { %>
-        <li>
-            <a href="/update/ <%= el._id %>">alt</a>
-            <a href="/delete/ <%= el._id %>">exc</a>       
-            <%= el.task %> 
-        </li>
-    <% }); %> 
+<section class="container">
     
-    </ul>
+    <div class="header">
+        <h1>TO DO</h1>
+        
+        <form action="/search" method="post">
+            <input type="date" name="dateInit" value="<%= todayDate %>">
+            <button type="submit"><i class="fas fa-clock"></i></button>
+        </form>
+    </div>
+    
+    <div class="show-list">
+        
+        <ul class="list-group list-group-flush">
+        <!-- RENDER TASKS OF DB -->
+        <% list.forEach(el => { %>
+            
+            <li class="list-group-item d-flex justify-content-between">
+                <a href="/update/ <%= el._id %>">
+                    <i class="fa fa-edit"></i>
+                </a>
+                <%= el.task %>
+                <a href="/delete/ <%= el._id %>">
+                    <i class="fa fa-trash-o"></i>
+                </a>
+            </li>
+            
 
-    <form action="/" method="post">
+        <% }); %>
+        </ul>
+
+
+    </div>
+    
+    <form action="/" method="post" class="input-form">
         <input type="text" name="newTask" autofocus>
         <input type="date" name="date" id="date" value="<%= todayDate %>">
         <input type="submit" value="Criar">
     </form>
 
-   <script>
-        function updateList(){
+</section>
 
-        }
-   </script>
 
-</body>
-</html>
+<%- include('./template/footer') %> 

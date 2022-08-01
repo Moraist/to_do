@@ -3,10 +3,12 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const { urlencoded } = require('body-parser');
 
+//APP SETUP
 const app = express();
 
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(express.static(__dirname + '/public'));
 
 // MONGOOSE CONNECTION
 mongoose.connect('mongodb://localhost:27017/todolist');
@@ -54,8 +56,6 @@ app.get('/', (req, res) => {
 
 app.post('/', (req, res)=>{
 
-    
-
     if (req.body.date != '' && req.body.newTask != ''){
         
         const taskCreate = new Task ({
@@ -94,15 +94,13 @@ app.post('/update', (req, res )=>{
         (err, doc)=> {
         res.redirect('/')
     })
-
 });
 
 app.get('/delete/:id', (req, res)=>{
 
     Task.deleteOne({_id: req.params.id.trim()}, ()=>{
-        res.redirect('/')
+        res.redirect('/search')
         })
-
 });
 
 app.post('/search', (req, res)=>{
