@@ -46,7 +46,6 @@ var today = year + "-" + month + "-" + day;
 app.get('/', (req, res) => {
 
     Task.find({date: today}, (err, doc)=>{
-        console.log(today)
         res.render('index', {
             list: doc,
             todayDate: today
@@ -83,7 +82,6 @@ app.get('/update/:id', (req, res)=>{
 
 app.post('/update', (req, res )=>{
 
-    console.log(req.body)
     Task.updateOne({
         _id: req.body.id}, 
         
@@ -99,17 +97,18 @@ app.post('/update', (req, res )=>{
 app.get('/delete/:id', (req, res)=>{
 
     Task.deleteOne({_id: req.params.id.trim()}, ()=>{
-        res.redirect('/search')
+        res.redirect('/search?dateinit=' + today)
         })
 });
 
-app.post('/search', (req, res)=>{
+app.get('/search', (req, res)=>{
 
-    Task.find({date: req.body.dateInit}, (err, doc)=>{
-        console.log(req.body.dateInit)
+    today = req.query.dateinit;
+
+    Task.find({date: req.query.dateinit}, (err, doc)=>{
         res.render('index', {
             list: doc,
-            todayDate: req.body.dateInit
+            todayDate: req.query.dateinit
         })
     });
 

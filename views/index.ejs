@@ -6,16 +6,15 @@
     <div class="header">
         <h1>TO DO</h1>
         
-        <form action="/search" method="post">
-            <input type="date" name="dateInit" value="<%= todayDate %>">
-            <button type="submit"><i class="fas fa-clock"></i></button>
+        <form action="/search" method="get">
+            <input type="date" name="dateinit" value="<%= todayDate %>" onchange="this.form.submit()">
         </form>
     </div>
     
     <div class="show-list">
         
         <ul class="list-group list-group-flush">
-        <!-- RENDER TASKS OF DB -->
+        <!-- RENDER TASKS FROM DB -->
         <% list.forEach(el => { %>
             
             <li class="list-group-item d-flex justify-content-between">
